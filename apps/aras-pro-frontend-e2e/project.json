@@ -1,0 +1,9 @@
+{
+  "name": "aras-pro-frontend-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/aras-pro-frontend-e2e/src",
+  "implicitDependencies": ["aras-pro-frontend"],
+  "// targets": "to see all targets run: nx show project aras-pro-frontend-e2e --web",
+  "targets": {}
+}
