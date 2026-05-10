@@ -1,0 +1,16 @@
+{
+  "name": "feature-leads",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/sfa/feature-leads/src",
+  "projectType": "library",
+  "tags": ["scope:sfa", "type:feature"],
+  "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {}
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

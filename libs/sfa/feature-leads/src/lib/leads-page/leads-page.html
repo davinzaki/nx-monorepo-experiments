@@ -1,0 +1,21 @@
+<div class="p-4">
+  <ui-page-header title="Leads" subtitle="Daftar prospek penjualan" />
+
+  @if (store.isEmpty()) {
+    <ui-empty-state
+      icon="pi-users"
+      title="Belum ada leads"
+      message="Tambahkan lead pertama untuk mulai melacak prospek"
+    />
+  } @else {
+    <ui-data-table
+      [columns]="columns"
+      [data]="store.leads()"
+      [loading]="store.loading()"
+      [totalRecords]="store.total()"
+      [rows]="params.rows"
+      (pageChange)="onPageChange($event)"
+      (sortChange)="onSortChange($event)"
+    />
+  }
+</div>

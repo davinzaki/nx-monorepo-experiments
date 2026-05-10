@@ -13,7 +13,14 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "paths": {}
+    "paths": {
+      "@aras-pro/shared/domain": ["./libs/shared/domain/src/index.ts"],
+      "@aras-pro/shared/util": ["./libs/shared/util/src/index.ts"],
+      "@aras-pro/shared/auth": ["./libs/shared/auth/src/index.ts"],
+      "@aras-pro/shared/ui": ["./libs/shared/ui/src/index.ts"],
+      "@aras-pro/sfa/data-access": ["./libs/sfa/data-access/src/index.ts"],
+      "@aras-pro/sfa/feature-leads": ["./libs/sfa/feature-leads/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

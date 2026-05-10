@@ -16,9 +16,36 @@ export default [
           enforceBuildableLibDependency: true,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
+            // App scope rules
             {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
+              sourceTag: 'scope:sfa',
+              onlyDependOnLibsWithTags: ['scope:sfa', 'scope:shared'],
+            },
+            // Shared hanya boleh depend ke shared
+            {
+              sourceTag: 'scope:shared',
+              onlyDependOnLibsWithTags: ['scope:shared'],
+            },
+            // type:feature tidak boleh import feature lain
+            {
+              sourceTag: 'type:feature',
+              onlyDependOnLibsWithTags: [
+                'type:data-access',
+                'type:ui',
+                'type:util',
+                'type:domain',
+                'type:auth',
+              ],
+            },
+            // type:ui tidak boleh import data-access
+            {
+              sourceTag: 'type:ui',
+              onlyDependOnLibsWithTags: ['type:util', 'type:domain'],
+            },
+            // type:domain tidak boleh depend ke apapun
+            {
+              sourceTag: 'type:domain',
+              onlyDependOnLibsWithTags: ['type:domain'],
             },
           ],
         },
