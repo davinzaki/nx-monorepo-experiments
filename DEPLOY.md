@@ -378,6 +378,56 @@ Setiap app langsung bisa diakses via `https://sfa.domain.com` dan `https://admin
 
 ---
 
+## Registry: GHCR vs Docker Hub
+
+Docker image yang di-build perlu disimpan di suatu **registry** agar VPS bisa pull. Dua pilihan umum yang gratis:
+
+| | GHCR | Docker Hub |
+|---|---|---|
+| **Harga** | Free (private: 500MB storage, 1GB bandwidth/bulan) | Free (1 private repo, unlimited public) |
+| **Setup di GitHub Actions** | Simpel — pakai `GITHUB_TOKEN` otomatis, tidak perlu secret tambahan | Perlu akun Docker Hub + 2 secret (`DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`) |
+| **Pull rate limit** | Tidak ada | 200 pulls/6 jam (authenticated) |
+| **Integrasi GitHub** | Native | Terpisah |
+| **Cocok untuk** | Project yang repo-nya di GitHub | Image yang dipakai di banyak platform |
+
+**Rekomendasi:** Pakai GHCR untuk project ini — lebih simpel karena tidak perlu akun/secret tambahan.
+
+### Setup Docker Hub (alternatif GHCR)
+
+Kalau ingin pakai Docker Hub, tambah 2 GitHub Secrets:
+
+| Secret | Isi |
+|--------|-----|
+| `DOCKERHUB_USERNAME` | Username Docker Hub kamu |
+| `DOCKERHUB_TOKEN` | Access token dari Docker Hub (bukan password) |
+
+Buat token di: Docker Hub → Account Settings → Security → **New Access Token**.
+
+Ganti step login dan build di `deploy.yml`:
+
+```yaml
+- name: Login ke Docker Hub
+  uses: docker/login-action@v3
+  with:
+    username: ${{ secrets.DOCKERHUB_USERNAME }}
+    password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+- name: Build dan push image ke Docker Hub
+  uses: docker/build-push-action@v5
+  with:
+    context: .
+    push: true
+    tags: ${{ secrets.DOCKERHUB_USERNAME }}/aras-pro-sfa:latest
+```
+
+Di VPS, login Docker Hub sekali:
+```bash
+docker login -u <dockerhub-username>
+# masukkan password atau access token
+```
+
+---
+
 ## CI/CD dengan GitHub Actions
 
 Dengan CI/CD, setiap push ke branch `main` otomatis build image baru dan deploy ke VPS — tidak perlu manual `git pull` lagi.
