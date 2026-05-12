@@ -5,10 +5,6 @@
   "projectType": "library",
   "tags": ["scope:sfa", "type:feature"],
   "targets": {
-    "test": {
-      "executor": "@nx/angular:unit-test",
-      "options": {}
-    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }

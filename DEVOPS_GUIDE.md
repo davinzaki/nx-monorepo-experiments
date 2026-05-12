@@ -235,6 +235,46 @@ Push kode ke GitHub
 | **Jenkins** | Self-hosted, sangat fleksibel, tapi perlu maintenance |
 | **CircleCI** | Cloud-based, cepat setup |
 
+### Nx Affected — Hanya Build yang Berubah
+
+Di Nx monorepo, gunakan `nx affected` agar CI/CD tidak memproses semua project setiap kali ada perubahan kecil.
+
+```bash
+# Hanya build project yang terpengaruh perubahan di branch ini
+npx nx affected -t build --base=main --head=HEAD
+
+# Hanya lint dan test yang terpengaruh
+npx nx affected -t lint,test --base=main --head=HEAD
+
+# Lihat daftar project yang affected tanpa build (preview)
+npx nx show projects --affected --base=main
+
+# Visualisasi dampak perubahan di browser
+npx nx affected:graph --base=main
+```
+
+**Catatan:** `--dry-run` hanya valid untuk generator (membuat file baru), bukan untuk task runner. Untuk preview tanpa eksekusi, gunakan `nx show projects --affected`.
+
+**Cara kerja `nx affected`:**
+
+Nx membaca git diff antara `--base` dan `--head`, lalu hitung graph dependency untuk tahu project mana yang ikut terpengaruh:
+
+```
+Ubah libs/sfa/feature-leads
+        ↓
+    apps/sfa         ← affected (depend pada feature-leads)
+
+shared/domain        ← tidak affected, skip
+shared/auth          ← tidak affected, skip
+shared/ui            ← tidak affected, skip
+```
+
+| Perintah | Kapan Dipakai |
+|----------|---------------|
+| `nx affected -t build` | CI/CD — hanya build yang berubah |
+| `nx run-many -t build --all` | Build semua project tanpa filter |
+| `nx affected:graph` | Visualisasi dampak sebelum build |
+
 ### Contoh GitHub Actions (`.github/workflows/deploy.yml`)
 ```yaml
 name: Build and Deploy
