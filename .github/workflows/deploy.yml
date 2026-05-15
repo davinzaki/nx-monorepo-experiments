@@ -39,12 +39,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build dan push image ke GHCR
+      - name: Build dan push image sfa
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          build-args: APP_NAME=sfa
+          tags: ghcr.io/${{ github.repository }}/sfa:latest
+
+      - name: Build dan push image dms
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          build-args: APP_NAME=dms
+          tags: ghcr.io/${{ github.repository }}/dms:latest
 
       - name: Deploy ke VPS via SSH
         uses: appleboy/ssh-action@v1
