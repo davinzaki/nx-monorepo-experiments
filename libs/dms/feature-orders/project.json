@@ -1,0 +1,13 @@
+{
+  "name": "feature-orders",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dms/feature-orders/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:dms", "type:feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

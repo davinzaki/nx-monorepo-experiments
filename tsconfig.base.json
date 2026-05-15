@@ -19,7 +19,8 @@
       "@aras-pro/shared/auth": ["./libs/shared/auth/src/index.ts"],
       "@aras-pro/shared/ui": ["./libs/shared/ui/src/index.ts"],
       "@aras-pro/sfa/data-access": ["./libs/sfa/data-access/src/index.ts"],
-      "@aras-pro/sfa/feature-leads": ["./libs/sfa/feature-leads/src/index.ts"]
+      "@aras-pro/sfa/feature-leads": ["./libs/sfa/feature-leads/src/index.ts"],
+      "@aras-pro/dms/feature-orders": ["./libs/dms/feature-orders/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

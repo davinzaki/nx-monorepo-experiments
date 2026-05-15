@@ -1,6 +1,18 @@
 services:
-  frontend:
-    build: .
+  sfa:
+    build:
+      context: .
+      args:
+        APP_NAME: sfa
     ports:
-      - '8080:80'
+      - "8080:80"
+    restart: unless-stopped
+
+  dms:
+    build:
+      context: .
+      args:
+        APP_NAME: dms
+    ports:
+      - "8081:80"
     restart: unless-stopped

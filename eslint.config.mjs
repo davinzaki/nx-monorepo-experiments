@@ -21,6 +21,10 @@ export default [
               sourceTag: 'scope:sfa',
               onlyDependOnLibsWithTags: ['scope:sfa', 'scope:shared'],
             },
+            {
+              sourceTag: 'scope:dms',
+              onlyDependOnLibsWithTags: ['scope:dms', 'scope:shared'],
+            },
             // Shared hanya boleh depend ke shared
             {
               sourceTag: 'scope:shared',

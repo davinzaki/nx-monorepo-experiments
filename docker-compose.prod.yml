@@ -1,6 +1,12 @@
 services:
-  frontend:
-    image: ghcr.io/${GITHUB_REPOSITORY}:latest
+  sfa:
+    image: ghcr.io/${GITHUB_REPOSITORY}/sfa:latest
     ports:
       - "8080:80"
+    restart: unless-stopped
+
+  dms:
+    image: ghcr.io/${GITHUB_REPOSITORY}/dms:latest
+    ports:
+      - "8081:80"
     restart: unless-stopped
